@@ -9,15 +9,11 @@ const generateToken = (id) => {
 
 // Set JWT in HTTP-only cookie
 const sendTokenAsCookie = (res, token) => {
-  const isProd = process.env.NODE_ENV === "production";
   res.cookie("token", token, {
     httpOnly: true, // not accessible via JS
-    secure: isProd, // HTTPS only in prod
-    // For local dev (non-prod) use 'lax' so browsers accept cookie on localhost.
-    // In production use 'none' with secure to allow cross-site requests if needed.
-    sameSite: isProd ? "none" : "lax",
+    secure: process.env.NODE_ENV === "production", // HTTPS only in prod
+    sameSite: "none", // protects against CSRF
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    path: "/",
   });
 };
 
