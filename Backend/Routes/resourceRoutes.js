@@ -1,9 +1,9 @@
-import express from "express";
-import { searchResources, getResourceById } from "../Controllers/resourceController.js";
+// import express from "express";
+// import { searchResources, getResourceById } from "../Controllers/resourceController.js";
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get("/", searchResources); 
-router.get("/:id", getResourceById);
+// router.get("/", searchResources); 
+// router.get("/:id", getResourceById);
 
-export default router;
+// export default router;

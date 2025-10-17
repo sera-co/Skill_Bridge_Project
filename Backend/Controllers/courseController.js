@@ -1,4 +1,4 @@
-import Resource from "../models/resourceLibrary.js";
+// import Resource from "../models/resourceLibrary.js";
 
 export const getCourses = async (req, res) => {
   try {

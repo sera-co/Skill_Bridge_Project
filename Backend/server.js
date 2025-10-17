@@ -1,23 +1,34 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+
+console.log(process.env.OPENAI_API_KEY)
+import express from "express";
 import cors from "cors";
+
+
 import connectDB from "./Config/db.js";
 import authRoutes from "./Routes/authRoutes.js";
 import roadmapRoutes from "./Routes/roadmapRoutes.js";
 import progressRoutes from "./Routes/progressRoutes.js";
 import dashboardRoutes from "./Routes/dashboardRoutes.js";
-import resourceRoutes from "./Routes/resourceRoutes.js";
-import mentorRoutes from "./Routes/mentorRoutes.js";
+// import resourceRoutes from "./Routes/resourceRoutes.js";
+// import mentorRoutes from "./Routes/mentorRoutes.js";
 import aiRoutes from "./Routes/aiRoutes.js";
-import courseRoutes from "./Routes/courseRoutes.js";
+// import courseRoutes from "./Routes/courseRoutes.js";
+import cookieParser from "cookie-parser";
 
 
-dotenv.config();
+
+
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173", // ✅ your frontend URL
+  credentials: true, // ✅ allows sending cookies or auth tokens
+}));
 app.use(express.json());
+app.use(cookieParser()); // Add this before your routes
 
 
 connectDB();
@@ -27,10 +38,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/roadmap", roadmapRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/resources", resourceRoutes);
-app.use("/api/mentor", mentorRoutes);
-app.use("/api/roadmap", aiRoutes);
-app.use("/api/courses", courseRoutes);
+// app.use("/api/resources", resourceRoutes);
+// app.use("/api/mentor", mentorRoutes);
+app.use("/api/ai", aiRoutes);
+// app.use("/api/courses", courseRoutes);
 
 
 app.get("/", (req, res) => {
