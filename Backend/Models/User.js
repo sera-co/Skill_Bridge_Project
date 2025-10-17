@@ -5,6 +5,16 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  preferences: {
+    learningStyle: { type: String, default: "project-based" }, // or videos, reading
+    freeOnly: { type: Boolean, default: false },
+    certificationRequired: { type: Boolean, default: false }
+  },
+  points: { type: Number, default: 0 },
+  badges: { type: [String], default: [] },
+  streak: { type: Number, default: 0 },
+  lastActiveAt: { type: Date },
+  createdAt: { type: Date, default: Date.now }
 });
 
 
@@ -14,7 +24,6 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
-
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
