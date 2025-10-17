@@ -11,6 +11,7 @@ const resourceSchema = new mongoose.Schema({
 }, { _id: false });
 
 const stepSchema = new mongoose.Schema({
+  id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
   title: String,
   description: String,
   order: Number,

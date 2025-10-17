@@ -1,50 +1,67 @@
 import Roadmap from "../models/roadmap.js";
-import User from "../models/user.js";
 
-
-export const updateProgress = async (req, res) => {
+// Update progress (step status or points)
+export const updateProgress= async (req, res) => {
   try {
-    const userId = req.user._id;
-    const { roadmapId, stepOrder, status } = req.body; 
+  const { id: roadmapId } = req.params; // roadmap ID
+  // stepId will be provided in the request body
+  // console.log(roadmapId);
+  const { stepId, stepOrder, status, pointsEarned } = req.body;
 
-    const roadmap = await Roadmap.findOne({ _id: roadmapId, userId });
-    if (!roadmap) return res.status(404).json({ message: "Roadmap not found" });
-
-    const step = roadmap.steps.find(s => s.order === stepOrder);
-    if (!step) return res.status(404).json({ message: "Step not found" });
-
-    step.status = status;
-    await roadmap.save();
-
-    
-    if (status === "completed") {
-      const user = await User.findById(userId);
-      user.points += 50; 
-      user.badges = [...new Set([...user.badges, `Completed step ${stepOrder}`])];
-
-     
-      const last = user.lastActiveAt || null;
-      const now = new Date();
-      if (last) {
-        const oneDay = 24 * 60 * 60 * 1000;
-        if (now - new Date(last) < oneDay * 2) {
-          user.streak = (user.streak || 0) + 1;
-        } else {
-          user.streak = 1;
-        }
-      } else {
-        user.streak = 1;
-      }
-      user.lastActiveAt = now;
-      await user.save();
+    // Find the roadmap by ID
+    const roadmap = await Roadmap.findById(roadmapId);
+    // console.log(roadmap)
+    if (!roadmap) {
+      return res.status(404).json({ message: "Roadmap not found" });
     }
 
-    res.json({ roadmap, message: "Progress updated" });
+    // Validate status if provided
+    const allowedStatuses = ["pending", "in-progress", "completed"];
+    if (status && !allowedStatuses.includes(status)) {
+      return res.status(400).json({ message: `Invalid status. Allowed: ${allowedStatuses.join(', ')}` });
+    }
+
+    let updatedStep = null;
+
+    // If stepId is provided in the body, prefer it to identify the step
+    if (stepId) {
+      const step = roadmap.steps.find((s) => String(s.id) === String(stepId));
+      if (!step) {
+        return res.status(404).json({ message: "Step not found" });
+      }
+      if (status) step.status = status;
+      if (typeof stepOrder === "number") step.order = stepOrder;
+      updatedStep = step;
+    } else {
+      // Fallback: identify step by order
+      if (typeof stepOrder === "number") {
+        const step = roadmap.steps.find((s) => s.order === stepOrder);
+        if (!step) {
+          return res.status(404).json({ message: "Step not found" });
+        }
+        if (status) step.status = status;
+        updatedStep = step;
+      }
+    }
+
+    // Update points if provided
+    if (typeof pointsEarned === "number") {
+      roadmap.pointsEarned += pointsEarned;
+    }
+
+    await roadmap.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Progress updated successfully",
+      data: updatedStep ? { step: updatedStep, roadmapId: roadmap._id } : roadmap,
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    console.error("Error updating progress:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 export const getProgress = async (req, res) => {
   try {
