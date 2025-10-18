@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import LearningPathForm from './components/LearningPathForm';
 import RoadmapOutput from './components/RoadmapOutput';
 import AuthPage from './components/AuthPage';
-import { generateRoadmap } from './services/api';
+import api, { generateRoadmap } from './services/api';
 
 function App() {
   const [roadmap, setRoadmap] = useState(null);
@@ -11,21 +11,20 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [progress, setProgress] = useState(null);
 
   // Check if user is already logged in
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    
-    if (token && user) {
+    if (token) {
       setIsAuthenticated(true);
-      setCurrentUser(JSON.parse(user));
     }
   }, []);
 
   // Handle successful login/registration
   const handleLoginSuccess = (data) => {
     setIsAuthenticated(true);
+    // Prefer backend user if provided; do not store user in localStorage
     if (data.user) {
       setCurrentUser(data.user);
     }
@@ -45,12 +44,15 @@ function App() {
     setIsLoading(true);
     setError(null);
     setRoadmap(null);
+    setProgress(null);
 
     try {
       const response = await generateRoadmap(formData);
       
       if (response.success && response.data) {
         setRoadmap(response.data);
+        // Fetch progress for the authenticated user after generating roadmap
+        await fetchProgress();
       } else {
         setError('Failed to generate roadmap. Please try again.');
       }
@@ -59,6 +61,21 @@ function App() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const fetchProgress = async () => {
+    if (!isAuthenticated) return;
+
+    try {
+      const { data } = await api.get('/progress');
+      setProgress(data);
+    } catch (err) {
+      console.error('Failed to fetch progress:', err);
+    }
+  };
+
+  const handleProgressUpdate = (updatedProgress) => {
+    setProgress(updatedProgress);
   };
 
   // Show auth page if not authenticated
@@ -96,6 +113,8 @@ function App() {
             <RoadmapOutput 
               roadmap={roadmap}
               error={error}
+              progress={progress}
+              onProgressUpdate={handleProgressUpdate}
             />
           </div>
         )}
