@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const LearningPathForm = ({ onSubmit, isLoading }) => {
+  // Check if user is authenticated on mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No authentication token found. User must login first.');
+    } else {
+      console.log('✅ User authenticated with token:', token.substring(0, 20) + '...');
+    }
+  }, []);
   const [formData, setFormData] = useState({
     skill: '',
     currentState: 'Beginner',

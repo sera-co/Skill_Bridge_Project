@@ -73,6 +73,39 @@
 
 ---
 
+## 🎯 How to Use
+
+1. **Login/Register** (Mock Authentication)
+   - When you first open the app at http://localhost:3000, you'll see a login page
+   - **No need for real credentials!** Just enter any email and password (min 6 characters)
+   - Click "Sign In" or create an account - both work instantly
+   - Your mock session will be saved in localStorage
+
+2. **Generate Your Learning Roadmap**
+   - After login, fill in the form:
+     - **What skill?** (e.g., "React", "Python", "Data Science")
+     - **Current Level** (Beginner/Intermediate/Advanced)
+     - **Timeline** (How many days to complete)
+     - **Learning Format** (Video/Notes)
+   - Click **"Generate Learning Path"**
+   - Wait a few seconds for AI to create your personalized roadmap
+
+3. **View Your Roadmap**
+   - See step-by-step learning path with resources
+   - Each step includes estimated hours and real learning materials
+   - The roadmap adapts based on your timeline and preferences
+
+4. **Troubleshooting**
+   - If you see "No token" error:
+     - Make sure you logged in first (even with fake credentials)
+     - Check browser console (F12) for authentication logs
+     - Try refreshing the page
+   - If roadmap generation is slow:
+     - First generation may take 10-15 seconds (AI is thinking!)
+     - The app will fall back to smart mock data if AI times out
+
+---
+
 ## 📖 Manual Setup (Alternative)
 
 If you prefer to run frontend and backend separately:
