@@ -1,0 +1,15 @@
+{
+  "name": "skill-bridge",
+  "version": "1.0.0",
+  "description": "AI-Powered Learning Path Generator",
+  "scripts": {
+    "postinstall": "cd Backend && npm install && cd ../skillbridge && npm install",
+    "start": "npm run start-backend & npm run start-frontend",
+    "start-backend": "cd Backend && npm start",
+    "start-frontend": "cd skillbridge && npm start"
+  },
+  "keywords": ["education", "ai", "learning"],
+  "author": "",
+  "license": "ISC"
+}
+
