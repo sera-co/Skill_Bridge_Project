@@ -1,137 +1,19 @@
-# SkillBridge – AI-Powered Learning Path Generator  
-**Tagline:** "Bridging skills to careers with AI-guided learning."
+# SkillBridge
 
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)](https://www.mongodb.com/)
-[![Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-blue)](https://ai.google.dev/)
-[![React](https://img.shields.io/badge/Frontend-React-61dafb)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Backend-Node.js-339933)](https://nodejs.org/)
+SkillBridge welcomes you to a world of personalized learning and intelligent skill-building.  
+Our AI-powered web application bridges the gap between ambition and achievement.  
+Built with React, Node.js, Express, and MongoDB, SkillBridge provides learners with structured, personalized roadmaps tailored to their goals and progress.
 
 ---
 
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB Atlas account (free tier works!)
-- Google Gemini API key
-
-### Installation & Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/Skill_Bridge.git
-   cd Skill_Bridge-main
-   ```
-
-2. **Set up environment variables**
-   
-   **Backend:** Copy the example file and add your credentials
-   ```bash
-   cd Backend
-   cp .env.example .env
-   # Now edit .env and add your MongoDB URI and Gemini API key
-   ```
-   
-   Your `Backend/.env` should look like:
-   ```env
-   MONGO_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/SkillBridge
-   GEMINI_API_KEY=YOUR_GEMINI_API_KEY
-   JWT_SECRET=any_random_secret_string
-   PORT=8080
-   NODE_ENV=development
-   FRONTEND_URL=http://localhost:3000
-   ```
-
-   **Frontend:** Copy the example file
-   ```bash
-   cd ../skillbridge
-   cp .env.example .env
-   ```
-   
-   Your `skillbridge/.env` should be:
-   ```env
-   REACT_APP_API_URL=http://localhost:8080/api
-   ```
-   
-   **📌 Where to get API keys:**
-   - **MongoDB**: Sign up at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (FREE)
-   - **Gemini API**: Get key from [Google AI Studio](https://aistudio.google.com/app/apikey) (FREE)
-
-3. **Install and Run (ONE command!)**
-   ```bash
-   npm install && npm start
-   ```
-   
-   That's it! This will:
-   - ✅ Install all backend dependencies
-   - ✅ Install all frontend dependencies
-   - ✅ Start both servers automatically
-
-4. **Access the app**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8080
-
----
-
-## 🎯 How to Use
-
-1. **Login/Register** (Mock Authentication)
-   - When you first open the app at http://localhost:3000, you'll see a login page
-   - **No need for real credentials!** Just enter any email and password (min 6 characters)
-   - Click "Sign In" or create an account - both work instantly
-   - Your mock session will be saved in localStorage
-
-2. **Generate Your Learning Roadmap**
-   - After login, fill in the form:
-     - **What skill?** (e.g., "React", "Python", "Data Science")
-     - **Current Level** (Beginner/Intermediate/Advanced)
-     - **Timeline** (How many days to complete)
-     - **Learning Format** (Video/Notes)
-   - Click **"Generate Learning Path"**
-   - Wait a few seconds for AI to create your personalized roadmap
-
-3. **View Your Roadmap**
-   - See step-by-step learning path with resources
-   - Each step includes estimated hours and real learning materials
-   - The roadmap adapts based on your timeline and preferences
-
-4. **Troubleshooting**
-   - If you see "No token" error:
-     - Make sure you logged in first (even with fake credentials)
-     - Check browser console (F12) for authentication logs
-     - Try refreshing the page
-   - If roadmap generation is slow:
-     - First generation may take 10-15 seconds (AI is thinking!)
-     - The app will fall back to smart mock data if AI times out
-
----
-
-## 📖 Manual Setup (Alternative)
-
-If you prefer to run frontend and backend separately:
-
-**Terminal 1 - Backend:**
-```bash
-cd Backend
-npm install
-npm start
-```
-
-**Terminal 2 - Frontend:**
-```bash
-cd skillbridge
-npm install
-npm start
-```
-
----
-
-## 1. Project Title  
+## Project Title
 **SkillBridge – Personalized Learning Path Generator**
 
+**Tagline:** “Bridging skills to careers with AI-guided learning.”
+
 ---
 
-## 2. Team Members  
+## Team Members
 - Sera  
 - Adrina  
 - Rahul  
@@ -140,36 +22,187 @@ npm start
 
 ---
 
-## 3. Problem Statement  
-Learners often struggle to identify the right sequence of courses, projects, and resources to acquire new skills or pursue a career. Scattered online materials, inconsistent guidance, and lack of personalized learning paths lead to wasted time, confusion, and demotivation.  
-**SkillBridge** aims to provide AI-generated, step-by-step learning roadmaps tailored to each user’s knowledge level, goals, and learning pace, ensuring efficient skill acquisition and career readiness.
+## Problem Statement
+
+Learners often struggle to identify the right sequence of courses, projects, and resources to acquire new skills or pursue a career.  
+Scattered online materials, inconsistent guidance, and lack of personalized learning paths lead to wasted time and confusion.
+
+**SkillBridge** solves this by generating AI-driven, step-by-step learning roadmaps tailored to each user’s goals, current level, and preferences — ensuring efficient, motivating, and goal-oriented learning.
 
 ---
 
-## 4. Core Components  
+## Core Components
 
-### **UI**
-- Web App (React.js) and Mobile App (React Native)  
-- Input forms for career/skill goal, current knowledge level, and learning preferences  
-- Visual roadmap/dashboard displaying learning steps, milestones, and recommended resources  
+### UI
+- Web App built using React.js and Tailwind CSS  
+- Clean input forms to capture learning goals, skill levels, and preferences  
+- Dynamic dashboard to display AI-generated roadmaps and resources  
+- Real-time progress tracking and seamless navigation  
 
-### **LLM API**
-- OpenAI GPT API (or similar) to generate structured learning paths  
-- Converts user goals and inputs into a step-by-step learning roadmap  
-- Integrates with a knowledge base of courses, tutorials, books, and projects  
+### LLM API
+- Uses OpenAI API to generate personalized, structured learning paths  
+- Converts user input (like “Web Development” or “AI Fundamentals”) into detailed roadmaps  
+- Suggests projects, resources, and timelines to achieve each milestone  
 
-### **Tools**
-- **Database:** MongoDB to store user profiles, learning paths, and progress  
-- **Visualization Library:** D3.js or Chart.js to display roadmap timelines and milestones  
-- **Notification System (optional):** Email or push notifications for milestones or reminders  
-- **Backend:** Node.js / Express.js for handling requests and storing data  
+### Tools
+- **Database:** MongoDB for user profiles, roadmaps, and progress data  
+- **Backend:** Node.js and Express.js for handling routes, logic, and AI integration  
+- **Authentication:** JWT-based secure login system  
+- **Axios:** For smooth frontend-backend communication  
+- **Environment Management:** dotenv for managing API keys and configurations  
 
 ---
 
-## 5. LLM’s Primary Task  
-- Understand user goals, current knowledge level, and preferences  
-- Generate personalized step-by-step learning plans  
-- Recommend resources, projects, and milestones  
-- Adapt roadmap dynamically if user progress or inputs change  
+## Frontend Pages and Screenshots
+
+Below are the main frontend pages of SkillBridge.  
+Each section includes a space to insert screenshots that illustrate the functionality.
+
+### 1. Home Page
+The landing page introduces the concept of SkillBridge and its main features.  
+**Screenshot Placeholder:**  
+![alt text](image-5.png)
+
+---
+
+### 2. Signup Page
+Allows new users to register by providing their basic details and preferences.  
+**Screenshot Placeholder:**  
+![alt text](image-4.png)
+
+---
+
+### 3. Login Page
+Registered users can log in securely using their email and password to access their dashboard.  
+**Screenshot Placeholder:**  
+![alt text](image-3.png)
+
+---
+
+
+### 4. Roadmap Page
+Shows the step-by-step roadmap generated by the AI model. Each step includes topics, project ideas, and resources.  
+**Screenshot Placeholder:**  
+![alt text](image-2.png)
+
+---
+
+### 5. Course Links Page
+Contains recommended external learning resources such as YouTube tutorials, documentation, and articles based on the roadmap.  
+**Screenshot Placeholder:**  
+
+![alt text](image-6.png)
+
+---
+
+### 8. AI Prompting Page
+Users can type what they wish to learn — for example, “Full Stack Development” — and SkillBridge instantly generates a personalized roadmap using the AI service.  
+**Screenshot Placeholder:**  
+![alt text](image.png)
+
+## Backend Explanation
+
+The backend of SkillBridge is built with Node.js and Express.js. It handles user authentication, roadmap generation, progress updates, and AI responses.
+
+### Backend Features
+- Secure signup and login using JWT authentication  
+- AI-powered roadmap generation using OpenAI API through `aiController.js`  
+- `roadmapController.js` for managing user-specific roadmaps (CRUD operations)  
+- Stores user profiles, preferences, and progress data in MongoDB  
+- RESTful API structure for modular, maintainable code  
+
+### Important Backend Files
+- **server.js** – Entry point of the backend server  
+- **Controllers**
+  - `authController.js` – Handles user authentication  
+  - `aiController.js` – Handles AI-generated roadmaps  
+  - `roadmapController.js` – Manages roadmap creation, retrieval, and updates  
+- **Models**
+  - `user.js` – Stores user schema  
+  - `roadmap.js` – Stores AI-generated roadmap structure  
+  - `resourceLibrary.js` – Stores course and learning resource data  
+- **Middleware**
+  - `authMiddleware.js` – Protects routes with authentication  
+
+---
+
+## Main API Endpoints
+
+- `POST /api/users/register` – Create new user account  
+- `POST /api/users/login` – Authenticate and return JWT token  
+- `POST /api/roadmap/generate` – Generate AI-powered learning path  
+- `GET /api/roadmap` – Retrieve user’s saved roadmap  
+- `PUT /api/roadmap/update` – Update roadmap or progress  
+- `GET /api/progress` – Fetch user progress status  
+
+---
+
+## Tech Stack
+
+### Frontend
+- React.js  
+- Tailwind CSS  
+- Axios  
+- React Router DOM  
+
+### Backend
+- Node.js  
+- Express.js  
+- MongoDB Atlas  
+- JWT and bcrypt  
+
+### AI Integration
+- OpenAI API  
+
+### Environment
+- dotenv  
+- Git and GitHub for version control  
+
+---
+
+## Deployment
+
+SkillBridge is deployed using modern hosting services to ensure smooth performance across both frontend and backend.
+
+### Frontend Deployment
+Deployed on **Netlify** for fast, scalable, and secure hosting.  
+**Frontend Link:**  
+
+
+### Backend Deployment
+Deployed on **Render**  for backend hosting and API endpoint accessibility.  
+**Backend Link:**  
+
+---
+
+## How It Works
+
+1. User signs up or logs in to the SkillBridge platform.  
+2. The user enters their learning or career goal.  
+3. The AI generates a structured, step-by-step roadmap.  
+4. The roadmap includes stages, projects, and course resources.  
+5. The user can update progress and revisit previous milestones anytime.  
+
+---
+
+## Deployment Workflow
+
+1. Build the frontend using `npm run build`.  
+2. Deploy the build directory to **Netlify**.  
+3. Deploy the backend server using **Render**.  
+4. Connect both with API URLs defined in `.env` file.  
+5. Test routes, authentication, and AI generation functionality.  
+
+---
+
+## Conclusion
+
+SkillBridge empowers learners to achieve their goals through structured, AI-guided learning paths.  
+With personalized roadmaps, resource recommendations, and progress tracking, SkillBridge transforms unorganized learning into an efficient and inspiring experience.
+
+
+
+## Video Link:
+https://drive.google.com/file/d/1ZzM8aPuy8pKmFmOD1K_95VQTNx96qtxI/view?usp=sharing
 
 ---# skillbridgeproai
