@@ -1,4 +1,4 @@
-import Roadmap from "../models/roadmap.js";
+import Roadmap from "../Models/roadmap.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
 

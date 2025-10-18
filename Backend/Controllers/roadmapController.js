@@ -1,5 +1,5 @@
 import axios from "axios";
-import Roadmap from "../models/roadmap.js";
+import Roadmap from "../Models/roadmap.js";
 
 export const generateRoadmap = async (req, res) => {
   try {

@@ -1,5 +1,5 @@
-import User from '../models/user.js';
-import Roadmap from '../models/roadmap.js';
+import User from '../Models/user.js';
+import Roadmap from '../Models/roadmap.js';
 // import Progress from '../models/progressModel.js';
 
 export const getDashboard = async (req, res) => {

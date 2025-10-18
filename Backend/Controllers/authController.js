@@ -1,4 +1,4 @@
-import User from "../models/user.js";
+import User from "../Models/user.js";
 import jwt from "jsonwebtoken";
 import sendWelcomeEmail from "../utils/email.js";
 
