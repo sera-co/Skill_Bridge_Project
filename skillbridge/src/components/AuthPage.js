@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { loginUser, registerUser } from '../services/api';
 
 const AuthPage = ({ onLoginSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -71,36 +72,29 @@ const AuthPage = ({ onLoginSuccess }) => {
     setIsLoading(true);
     setApiError('');
 
-    // Mock authentication - accepts any credentials
-    setTimeout(() => {
-      // Create mock user data
-      const mockUser = {
-        _id: 'mock-user-' + Date.now(),
-        name: isLogin ? 'Demo User' : formData.name,
-        email: formData.email,
-        preferences: {
-          learningStyle: 'project-based',
-          freeOnly: false,
-          certificationRequired: false
-        }
-      };
+    try {
+      let response;
+      if (isLogin) {
+        response = await loginUser({
+          email: formData.email,
+          password: formData.password,
+        });
+      } else {
+        response = await registerUser({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        });
+      }
 
-      const mockToken = 'mock-token-' + Date.now();
-
-      // Store token and user data
-      localStorage.setItem('token', mockToken);
-      localStorage.setItem('user', JSON.stringify(mockUser));
-
-      // Call success callback
-      onLoginSuccess({
-        success: true,
-        token: mockToken,
-        user: mockUser,
-        message: isLogin ? 'Logged in successfully' : 'User registered successfully'
-      });
-
+      // API layer stores the token in localStorage via interceptor logic
+      // Only pass data up; do not persist user here
+      onLoginSuccess(response);
+    } catch (err) {
+      setApiError(err.message || 'Authentication failed. Please try again.');
+    } finally {
       setIsLoading(false);
-    }, 1000); // Simulate network delay
+    }
   };
 
   const toggleAuthMode = () => {

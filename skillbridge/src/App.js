@@ -12,22 +12,23 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
-  // Check if user is already logged in
+  // Check if user is already logged in (token only)
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    
-    if (token && user) {
+    if (token) {
       setIsAuthenticated(true);
-      setCurrentUser(JSON.parse(user));
     }
   }, []);
 
   // Handle successful login/registration
   const handleLoginSuccess = (data) => {
+    // Token is stored by API layer; we only trust its presence
     setIsAuthenticated(true);
-    if (data.user) {
+    // Keep user details only in memory if provided by backend
+    if (data && data.user) {
       setCurrentUser(data.user);
+    } else {
+      setCurrentUser(null);
     }
   };
 
