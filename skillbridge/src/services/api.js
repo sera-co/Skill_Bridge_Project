@@ -86,4 +86,17 @@ export const loginUser = async (credentials) => {
   }
 };
 
+// Authenticated: fetch current user's progress
+export const getProgress = async () => {
+  try {
+    const response = await api.get('/progress');
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+      'Failed to fetch progress. Please try again.'
+    );
+  }
+};
+
 export default api;

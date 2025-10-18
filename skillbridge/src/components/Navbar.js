@@ -16,12 +16,14 @@ const Navbar = ({ currentUser, onLogout }) => {
                 AI-Powered Learning Path Generator
               </span>
             </div>
-            {currentUser && (
+            {(currentUser || localStorage.getItem('token')) && (
               <div className="flex items-center space-x-4">
-                <div className="text-right">
-                  <p className="text-sm font-medium text-stone-800">{currentUser.name}</p>
-                  <p className="text-xs text-stone-500">{currentUser.email}</p>
-                </div>
+                {currentUser && (
+                  <div className="text-right">
+                    <p className="text-sm font-medium text-stone-800">{currentUser.name}</p>
+                    <p className="text-xs text-stone-500">{currentUser.email}</p>
+                  </div>
+                )}
                 <button
                   onClick={onLogout}
                   className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

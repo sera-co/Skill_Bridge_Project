@@ -12,29 +12,29 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
-  // Check if user is already logged in
+  // Check if user is already logged in (token-only)
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    
-    if (token && user) {
+    if (token) {
       setIsAuthenticated(true);
-      setCurrentUser(JSON.parse(user));
+      // We intentionally do not read or store user details in localStorage
     }
   }, []);
 
-  // Handle successful login/registration
+  // Handle successful login/registration (token-only storage handled by API/Auth flow)
   const handleLoginSuccess = (data) => {
     setIsAuthenticated(true);
-    if (data.user) {
+    // Optionally set in-memory user details if the API returns them
+    if (data && data.user) {
       setCurrentUser(data.user);
+    } else {
+      setCurrentUser(null);
     }
   };
 
   // Handle logout
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
     setIsAuthenticated(false);
     setCurrentUser(null);
     setRoadmap(null);
