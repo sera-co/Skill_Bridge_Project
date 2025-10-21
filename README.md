@@ -202,7 +202,5 @@ With personalized roadmaps, resource recommendations, and progress tracking, Ski
 
 
 
-## Video Link:
-https://drive.google.com/file/d/1ZzM8aPuy8pKmFmOD1K_95VQTNx96qtxI/view?usp=sharing
 
----# skillbridgeproai
+---# skillbridge
